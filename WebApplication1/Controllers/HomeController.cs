@@ -11,7 +11,16 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult AboutToxin()
+        {
+            return View();
+        }
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Bio()
         {
             return View();
         }
