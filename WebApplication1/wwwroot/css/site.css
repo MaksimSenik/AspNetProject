@@ -1,31 +1,175 @@
-html {
-  font-size: 14px;
+
+
+html, body {
+    background-color: #11141a !important;
+    color: #ece8e1 !important;
+    margin: 0;
+    padding: 0;
+    /* Включаем Flexbox на всю высоту экрана для структуры сайта */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* Находим главный тег header (вашу верхнюю плашку) */
+header {
+    flex-shrink: 0; /* Шапка сохраняет свои размеры */
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Находим главный контейнер с контентом страницы */
+main,
+.container,
+role[main] {
+    flex: 1 0 auto; /* Заставляем контент занимать ВСЁ свободное пространство, толкая футер вниз */
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+/* Стилизация самого футера под стиль Valorant */
+footer,
+.footer {
+    flex-shrink: 0; /* Футер не сжимается */
+    background-color: #16191c !important; /* Делаем подвал темным */
+    border-top: 1px solid rgba(236, 232, 225, 0.08) !important; /* Очень тонкая скрытая линия */
+    padding: 20px 0 !important;
+    color: rgba(236, 232, 225, 0.4) !important;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
-body {
-  margin-bottom: 60px;
+    /* Убираем дефолтный белый цвет текста в футере от Bootstrap */
+    footer a,
+    .footer a {
+        color: #ff4655 !important; /* Ссылки в футере делаем красными */
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+
+/* Убираем любые дефолтные отступы у главного контейнера, оголяющие фон */
+.container, .main-container, main {
+    background-color: transparent !important;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+header,
+.navbar,
+nav.navbar,
+.bg-white,
+header .border-bottom {
+    background-color: #1f2326 !important; /* Строгий тёмно-серый цвет */
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: 2px solid #ff4655 !important; /* Фирменная красная линия Valorant */
+    margin: 0 !important;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    /* 2. Убираем любые внутренние рамки Bootstrap, которые могут давать белые пиксели */
+    .navbar .container,
+    .navbar .container-fluid,
+    header .container {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+/* 3. Корректируем отступы, чтобы шапка сидела монолитно */
+header {
+    padding: 0 !important;
+}
+
+.navbar {
+    padding: 15px 0 !important;
+}
+
+/* 4. Логотип кофейни */
+.navbar-brand {
+    font-family: 'Teko', sans-serif !important;
+    font-size: 2rem !important;
+    color: #ece8e1 !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.2s ease;
+    padding-left: 20px;
+}
+
+    .navbar-brand:hover {
+        color: #ff4655 !important;
+    }
+
+/* 5. Ссылки меню (Home, Privacy, About Us...) */
+.nav-link,
+.navbar-nav .nav-link {
+    font-family: 'Teko', sans-serif !important;
+    font-size: 1.4rem !important;
+    color: rgba(236, 232, 225, 0.6) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 20px !important;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+    .nav-link:hover,
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+        color: #ece8e1 !important;
+    }
+
+    /* Красная полоса под ссылкой при наведении */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 20px;
+        width: 0;
+        height: 2px;
+        background-color: #ff4655;
+        transition: width 0.2s ease;
+    }
+
+    .nav-link:hover::after {
+        width: calc(100% - 40px);
+    }
+
+    /* Активная страница */
+    .nav-link.active,
+    .navbar-nav .nav-link.active {
+        color: #ff4655 !important;
+    }
+
+        .nav-link.active::after {
+            width: calc(100% - 40px);
+        }
+
+/* Кнопка-бургер для мобильных */
+.navbar-toggler {
+    border-color: rgba(236, 232, 225, 0.2) !important;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1) brightness(0.9);
+}
+
+
+/* Отключаем абсолютное закрепление Bootstrap, чтобы футер ушел в самый конец страницы */
+footer,
+.footer,
+body > footer {
+    position: relative !important; /* Убираем position: absolute */
+    bottom: auto !important;
+    clear: both !important;
+    /* Внешний вид в стиле Valorant */
+    background-color: #16191c !important;
+    border-top: 1px solid rgba(236, 232, 225, 0.08) !important;
+    padding: 30px 0 !important;
+    margin-top: 60px !important; /* Делаем красивый отступ от кнопки "На главную" */
+    width: 100% !important;
+    display: block !important;
+}
+
+/* Сбрасываем Flex-костыли, которые мы пробовали ранее, они больше не нужны */
+html, body {
+    display: block !important;
+    height: auto !important;
 }

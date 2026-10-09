@@ -1,0 +1,60 @@
+﻿@using WebApplication1.Models
+@{
+    ViewData["Title"] = "About Us";
+}
+@section AboutStyle
+{
+    <link rel = "stylesheet" href = "~/css/AboutStyle.css" />
+}
+@model List<Product>
+<div class="text-center">
+<h1>@ViewData["Title"]</h1>
+    <div class="agent-cards-grid">
+        @foreach (var item in Model)
+        {
+        <div class="tactical-card @item.AgentName.ToLower()">
+            <!-- Линия заголовка и бейдж -->
+            <div class="card-header-line">
+                <span class="agent-badge">@item.AgentName</span>
+            </div>
+    
+            <!-- Контент -->
+            <div class="card-main-content">
+                <h3 class="product-title">@item.Name</h3>
+                <p class="product-description">@item.Descript</p>
+            </div>
+    
+            <!-- Декоративный футер -->
+            <div class="card-footer-decor">
+                <span class="system-status">DATA LOCKED</span>
+            </div>
+        </div>
+
+           
+
+        }
+    </div>
+
+
+<a asp-controller="home" asp-action="index">На главную</a>
+
+</div>
+<script>
+    document.querySelectorAll('.tactical-card').forEach(card => {
+        card.addEventListener('click', () => {
+            // Переключаем класс открытия при клике на карточку
+            card.classList.toggle('is-opened');
+
+            // Дополнительный финт: меняем текст статуса в футере карточки
+            const statusText = card.querySelector('.system-status');
+            if (statusText) {
+                if (card.classList.contains('is-opened')) {
+                    statusText.textContent = 'ACCESS GRANTED';
+                } else {
+                    statusText.textContent = 'DATA LOCKED';
+                }
+            }
+        });
+    });
+</script>
+

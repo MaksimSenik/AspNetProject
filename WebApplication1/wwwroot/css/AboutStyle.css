@@ -1,0 +1,314 @@
+﻿@import url('https://googleapis.com');
+
+:root {
+    --vlorant-red: #ff4655;
+    --vlorant-dark: #11141a;
+    --vlorant-dark-gray: #1f2326;
+    --vlorant-light: #ece8e1;
+    --font-heading: 'Teko', sans-serif;
+    --font-body: 'Ubuntu', sans-serif;
+    /* Палитра Агентов */
+    --color-jett: #00f0ff;
+    --color-cypher: #ffb800;
+    --color-viper: #00ff66;
+    --color-reyna: #bd00ff;
+}
+
+/* Специфичный контейнер страницы */
+.text-center {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+    /* ==========================================================================
+   ТАКТИЧЕСКИЙ ЗАГОЛОВОК H1 (ИНТЕРФЕЙС ВАЛОРАНТ)
+   ========================================================================== */
+    .text-center h1 {
+        font-family: var(--font-heading);
+        font-size: 5rem;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: var(--vlorant-light);
+        border-left: 6px solid var(--vlorant-red);
+        padding-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        text-align: left;
+        text-shadow: 0 0 15px rgba(236, 232, 225, 0.15);
+        position: relative;
+        display: inline-block;
+    }
+
+        /* Декоративный технический индекс рядом с заголовком */
+        .text-center h1::after {
+            content: '// DATA_MENU.PRTC';
+            position: absolute;
+            bottom: 8px;
+            right: -130px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--vlorant-red);
+            opacity: 0.7;
+        }
+
+        /* Маленькая тактическая точка под линией среза */
+        .text-center h1::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            bottom: -10px;
+            width: 6px;
+            height: 6px;
+            background-color: var(--vlorant-light);
+        }
+
+/* Сетка для карточек */
+.agent-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* ==========================================================================
+   КОМПОНЕНТ: ТАКТИЧЕСКАЯ КАРТОЧКА С АНИМАЦИЕЙ СТЕКАНИЯ ЦВЕТА
+   ========================================================================== */
+.tactical-card {
+    background: var(--vlorant-dark-gray);
+    border: 1px solid rgba(236, 232, 225, 0.1);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 340px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    transition: all 0.4s ease;
+}
+
+    /* Слой неоновой заливки — Изначально РАСТЯНУТ на 100% */
+    .tactical-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: scaleY(1);
+        transform-origin: bottom; /* Цвет стекает вниз */
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: -1;
+    }
+
+    /* Эффект СТЕКАНИЯ при нажатии */
+    .tactical-card.is-opened::before {
+        transform: scaleY(0);
+    }
+
+    /* --- 1. СОСТОЯНИЕ КАРТОЧКИ: ЗАБЛОКИРОВАНО (Изначально) --- */
+    .tactical-card .product-title {
+        font-family: var(--font-heading);
+        font-size: 2.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0 0 15px 0;
+        text-align: center;
+        color: var(--vlorant-dark) !important; /* Темный читаемый текст на неоне */
+        transition: all 0.4s ease;
+    }
+
+    .tactical-card .product-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        text-align: left;
+        margin: 0;
+        color: rgba(17, 20, 26, 0.8) !important;
+        /* ФИКС: Полностью исключаем просвечивание серого текста */
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none;
+        transform: translateY(15px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tactical-card .agent-badge {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 2px 12px;
+        background: var(--vlorant-dark);
+        color: var(--vlorant-light);
+        border: 1px solid var(--vlorant-dark);
+        transition: all 0.4s ease;
+    }
+
+    .tactical-card .system-status {
+        font-size: 0.75rem;
+        font-family: monospace;
+        color: rgba(17, 20, 26, 0.6);
+        letter-spacing: 1px;
+        transition: color 0.4s ease;
+    }
+
+.card-header-line {
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid rgba(17, 20, 26, 0.15);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    transition: border-color 0.4s ease;
+}
+
+.card-footer-decor {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(17, 20, 26, 0.15);
+    transition: border-color 0.4s ease;
+}
+
+/* --- 2. СОСТОЯНИЕ КАРТОЧКИ: РАЗБЛОКИРОВАНО (После клика) --- */
+.tactical-card.is-opened {
+    border-color: rgba(236, 232, 225, 0.2);
+}
+
+    .tactical-card.is-opened .product-title {
+        color: var(--vlorant-light) !important;
+        text-align: left;
+    }
+
+    .tactical-card.is-opened .product-description {
+        color: rgba(236, 232, 225, 0.85) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .tactical-card.is-opened .card-header-line {
+        border-color: rgba(236, 232, 225, 0.08);
+    }
+
+    .tactical-card.is-opened .card-footer-decor {
+        border-color: rgba(236, 232, 225, 0.05);
+    }
+
+/* --- Динамические стартовые цвета Агентов --- */
+/* JETT */
+.tactical-card.jett::before {
+    background: var(--color-jett);
+}
+
+.tactical-card.jett.is-opened .product-title {
+    color: var(--color-jett) !important;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.tactical-card.jett.is-opened .agent-badge {
+    color: var(--color-jett);
+    background: transparent;
+    border-color: var(--color-jett);
+}
+
+.tactical-card.jett.is-opened .system-status {
+    color: rgba(0, 240, 255, 0.4);
+}
+
+/* CYPHER */
+.tactical-card.cypher::before {
+    background: var(--color-cypher);
+}
+
+.tactical-card.cypher.is-opened .product-title {
+    color: var(--color-cypher) !important;
+    text-shadow: 0 0 10px rgba(255, 184, 0, 0.3);
+}
+
+.tactical-card.cypher.is-opened .agent-badge {
+    color: var(--color-cypher);
+    background: transparent;
+    border-color: var(--color-cypher);
+}
+
+.tactical-card.cypher.is-opened .system-status {
+    color: rgba(255, 184, 0, 0.4);
+}
+
+/* VIPER */
+.tactical-card.viper::before {
+    background: var(--color-viper);
+}
+
+.tactical-card.viper.is-opened .product-title {
+    color: var(--color-viper) !important;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+}
+
+.tactical-card.viper.is-opened .agent-badge {
+    color: var(--color-viper);
+    background: transparent;
+    border-color: var(--color-viper);
+}
+
+.tactical-card.viper.is-opened .system-status {
+    color: rgba(0, 255, 102, 0.4);
+}
+
+/* REYNA */
+.tactical-card.reyna::before {
+    background: var(--color-reyna);
+}
+
+.tactical-card.reyna.is-opened .product-title {
+    color: var(--color-reyna) !important;
+    text-shadow: 0 0 10px rgba(189, 0, 255, 0.3);
+}
+
+.tactical-card.reyna.is-opened .agent-badge {
+    color: var(--color-reyna);
+    background: transparent;
+    border-color: var(--color-reyna);
+}
+
+.tactical-card.reyna.is-opened .system-status {
+    color: rgba(189, 0, 255, 0.4);
+}
+
+/* Кнопка "На главную" */
+.text-center a {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--vlorant-light) !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 12px 40px;
+    border: 1px solid rgba(236, 232, 225, 0.2);
+    position: relative;
+    transition: all 0.2s ease;
+    background: transparent;
+    margin-top: 20px;
+}
+
+    .text-center a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 6px;
+        height: 6px;
+        background-color: var(--vlorant-red);
+    }
+
+    .text-center a:hover {
+        border-color: var(--vlorant-red);
+        background-color: var(--vlorant-red) !important;
+        color: var(--vlorant-dark) !important;
+        box-shadow: 0 0 20px rgba(255, 70, 85, 0.4);
+    }
