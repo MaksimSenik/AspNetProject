@@ -1,0 +1,305 @@
+﻿/* Переменные кастомных цветов агентов Valorant */
+:root {
+    --color-jett: #98e4f4; /* Небесно-голубой */
+    --color-cypher: #ffb800; 
+    --color-reyna: #c83dce; /* Неоновый фиолетовый */
+    --color-viper: #44ff62; /* Токсично-зеленый */
+    --color-dark: #0f1923; /* Цвет глубокого фона */
+}
+
+/* Главный контейнер */
+.roster-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 40px;
+    background-color: var(--color-dark);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    min-height: 520px;
+}
+
+/* Вертикальная вкладка агента */
+.agent-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #172430;
+    border: 1px solid rgba(255, 70, 85, 0.2);
+    height: 480px;
+    width: 80px;
+    overflow: hidden;
+    transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-toggle {
+    display: none;
+}
+
+/* Лицевая плашка вкладки */
+.card-front {
+    width: 80px;
+    min-width: 80px;
+    padding: 20px 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #111c25;
+    z-index: 2;
+    transition: background-color 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Повернутый текст заголовка */
+.rotated-title {
+    color: #ff4655;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transform: rotate(-90deg) translateY(-5px);
+    transform-origin: center;
+    white-space: nowrap;
+    margin-top: 60px;
+    transition: color 0.3s ease;
+}
+
+/* Задняя часть карточки (контент) */
+.card-back {
+    width: 0;
+    opacity: 0;
+    background-color: #172430;
+    transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.2s ease;
+}
+
+/* Контейнер текста с эффектом проявления "Ночного рынка" */
+.content-wrapper {
+    width: 340px;
+    padding: 30px;
+    box-sizing: border-box;
+    /* Изначально контент скрыт шторкой и сдвинут */
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(15px);
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), clip-path 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition-delay: 0.1s; /* Задержка, пока вкладка раздвигается */
+}
+
+/* Адаптивные динамические плашки ролей под цвет каждого агента */
+.jett-card .role-badge {
+    border-left: 3px solid var(--color-jett);
+    background-color: rgba(152, 228, 244, 0.1);
+}
+
+.cypher-card .role-badge {
+    border-left: 3px solid var(--color-cypher);
+    background-color: rgba(59, 122, 214, 0.1);
+}
+
+.reyna-card .role-badge {
+    border-left: 3px solid var(--color-reyna);
+    background-color: rgba(200, 61, 206, 0.1);
+}
+
+.viper-card .role-badge {
+    border-left: 3px solid var(--color-viper);
+    background-color: rgba(68, 255, 98, 0.1);
+}
+
+.role-badge {
+    display: inline-block;
+    color: #ece8e1;
+    padding: 6px 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+}
+
+.card-back h3 {
+    color: #ff4655;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
+}
+
+.card-back p, .card-back ul {
+    color: #ece8e1;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.card-back p {
+    margin-bottom: 20px;
+}
+
+.card-back ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.card-back li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* При наведении подсвечиваем стандартную рамку */
+.agent-card:hover {
+    border-color: #ff4655;
+}
+
+/* --- ПЕРСОНАЛЬНЫЕ ЦВЕТА И АНИМАЦИЯ ОТКРЫТИЯ --- */
+
+/* 1. Настройка ширины при открытии */
+#card-jett:checked ~ .jett-card,
+#card-cypher:checked ~ .cypher-card,
+#card-reyna:checked ~ .reyna-card,
+#card-viper:checked ~ .viper-card {
+    width: 420px;
+}
+
+/* Меняем цвет рамки всей карточки на цвет агента */
+#card-jett:checked ~ .jett-card {
+    border-color: var(--color-jett);
+}
+
+#card-cypher:checked ~ .cypher-card {
+    border-color: var(--color-cypher);
+}
+
+#card-reyna:checked ~ .reyna-card {
+    border-color: var(--color-reyna);
+}
+
+#card-viper:checked ~ .viper-card {
+    border-color: var(--color-viper);
+}
+
+    /* 2. Раскрытие фонового блока */
+    #card-jett:checked ~ .jett-card .card-back,
+    #card-cypher:checked ~ .cypher-card .card-back,
+    #card-reyna:checked ~ .reyna-card .card-back,
+    #card-viper:checked ~ .viper-card .card-back {
+        width: 340px;
+        opacity: 1;
+    }
+
+    /* 3. Анимация проявления текста в стиле "Ночного рынка" (раскрытие шторки) */
+    #card-jett:checked ~ .jett-card .content-wrapper,
+    #card-cypher:checked ~ .cypher-card .content-wrapper,
+    #card-reyna:checked ~ .reyna-card .content-wrapper,
+    #card-viper:checked ~ .viper-card .content-wrapper {
+        clip-path: inset(0 0 0 0); /* Шторка полностью открывается сверху вниз */
+        transform: translateY(0); /* Текст плавно встает на место */
+    }
+
+/* 4. Окрашивание левой вкладки в персональный цвет агента */
+#card-jett:checked ~ .jett-card .card-front {
+    background-color: var(--color-jett);
+}
+
+#card-cypher:checked ~ .cypher-card .card-front {
+    background-color: var(--color-cypher);
+}
+
+#card-reyna:checked ~ .reyna-card .card-front {
+    background-color: var(--color-reyna);
+}
+
+#card-viper:checked ~ .viper-card .card-front {
+    background-color: var(--color-viper);
+}
+
+/* 5. Инверсия цвета текста на вкладке в цвет глубокого фона */
+#card-jett:checked ~ .jett-card .rotated-title,
+#card-cypher:checked ~ .cypher-card .rotated-title,
+#card-reyna:checked ~ .reyna-card .rotated-title,
+#card-viper:checked ~ .viper-card .rotated-title {
+    color: var(--color-dark);
+}
+
+/* Блокировка открытия нескольких элементов сразу */
+.card-toggle:checked ~ .agent-card {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+#card-jett:checked ~ .jett-card,
+#card-cypher:checked ~ .cypher-card,
+#card-reyna:checked ~ .reyna-card,
+#card-viper:checked ~ .viper-card {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+/* Внешняя ссылка-кнопка в стиле Valorant */
+.val-nav-btn {
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    border: 1px solid rgba(255, 70, 85, 0.4);
+    padding: 2px;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: border-color 0.2s ease;
+}
+
+
+    /* Внутренний контейнер фона */
+    .val-nav-btn > span {
+        position: relative;
+        display: block;
+        background-color: #111c25; /* Темный фон, как у закрытых вкладок */
+        padding: 12px 30px;
+        overflow: hidden; /* Скрывает выходящую за рамки заливку */
+    }
+
+        /* Текст кнопки */
+        .val-nav-btn > span > span {
+            position: relative;
+            z-index: 2; /* Текст находится строго над эффектом заливки */
+            color: #ece8e1 !important; /* Светло-серый цвет текста в стиле Valorant */
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        /* Эффект неоновой заливки при наведении (слой под текстом) */
+        .val-nav-btn > span::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ff4655; /* Фирменный неоновый красный цвет */
+            z-index: 1;
+            transform: scaleX(0); /* Сжато до нуля по горизонтали */
+            transform-origin: left; /* Заливка идет слева направо */
+            transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+    /* --- СОСТОЯНИЕ ПРИ НАВЕДЕНИИ (HOVER) --- */
+
+    /* Делаем внешнюю рамку ярче при наведении */
+    .val-nav-btn:hover {
+        border-color: #ff4655;
+    }
+
+        /* Запускаем анимацию заполнения цветом */
+        .val-nav-btn:hover > span::before {
+            transform: scaleX(1);
+        }
+
+        /* Инвертируем цвет текста на темный для идеального контраста */
+        .val-nav-btn:hover > span > span {
+            color: #0f1923 !important;
+        }

@@ -1,0 +1,56 @@
+﻿@using WebApplication1.Models
+@{
+    ViewData["Title"] = "Biografy";
+}
+@section BioStyle
+{
+    <link rel = "stylesheet" href = "~/css/BioStyle.css" />
+}
+@model List<Bio>
+
+<div class="roster-container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <!-- 1. Скрытые чекбоксы управления аккордеоном -->
+    @foreach (var agent in Model)
+    {
+        string technicalId = agent.Name.ToLower().Trim();
+        <input type="checkbox" id="card-@technicalId" class="card-toggle">
+    }
+
+    <!-- 2. Вывод горизонтальных карточек агентов -->
+    @foreach (var agent in Model)
+    {
+        string technicalId = agent.Name.ToLower().Trim();
+
+        <div class="agent-card @(technicalId)-card">
+            <label for="card-@technicalId" class="card-front">
+                <div class="rotated-title">@agent.Name</div>
+            </label>
+            <div class="card-back">
+                <div class="content-wrapper">
+                    <p class="role-badge">@agent.RoleBadge</p>
+                    
+                    <h3>История</h3>
+                    <p>@agent.HistoryText</p>
+                    
+                    <h3>Интересные факты</h3>
+                    <ul>
+                        <li>@agent.FactOne</li>
+                        <li>@agent.FactTwo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+
+
+<div style="text-align: center; margin-top: 30px;">
+    <a class="val-nav-btn" asp-controller="Home" asp-action="Index">
+        <span>
+            <span>На главную</span>
+        </span>
+    </a>
+</div>
+
+
+</div>

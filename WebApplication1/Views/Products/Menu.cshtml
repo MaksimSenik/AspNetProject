@@ -1,11 +1,12 @@
 ﻿@using WebApplication1.Models
 @{
-    ViewData["Title"] = "About Us";
+    ViewData["Title"] = "Menu";
 }
 @section AboutStyle
 {
-    <link rel = "stylesheet" href = "~/css/AboutStyle.css" />
+    <link rel = "stylesheet" href = "~/css/MenuStyle.css" />
 }
+
 @model List<Product>
 <div class="text-center">
 <h1>@ViewData["Title"]</h1>
@@ -35,26 +36,7 @@
         }
     </div>
 
-
 <a asp-controller="home" asp-action="index">На главную</a>
-
 </div>
-<script>
-    document.querySelectorAll('.tactical-card').forEach(card => {
-        card.addEventListener('click', () => {
-            // Переключаем класс открытия при клике на карточку
-            card.classList.toggle('is-opened');
-
-            // Дополнительный финт: меняем текст статуса в футере карточки
-            const statusText = card.querySelector('.system-status');
-            if (statusText) {
-                if (card.classList.contains('is-opened')) {
-                    statusText.textContent = 'ACCESS GRANTED';
-                } else {
-                    statusText.textContent = 'DATA LOCKED';
-                }
-            }
-        });
-    });
-</script>
+<script src="~/js/MenuScript.js"></script>
 

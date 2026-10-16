@@ -1,9 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section IndexStyle
+{
+    <link rel = "stylesheet" href = "~/css/IndexStyle.css" />
+}
 
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
-        <a asp-controller="Products" asp-action="AboutUs">О нас</a>
+        <a asp-controller="Products" asp-action="Menu">Меню</a>
 
     </div>

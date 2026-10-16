@@ -7,10 +7,11 @@ namespace WebApplication1.Controllers
     {
         public static List<Product> products = new List<Product>();
 
-        private static readonly string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Взрослая академия\\Desktop\\Новая папка\\AspNetProject\\WebApplication1\\DataBase\\Database1.mdf\";Integrated Security=True";
+        private static readonly string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Взрослая академия\\Desktop\\Новая папка (2)\\AspNetProject\\WebApplication1\\DataBase\\Database1.mdf\";Integrated Security=True";
 
         public static List<Product> GetProducts()
         {
+            products.Clear();
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();

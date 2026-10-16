@@ -5,7 +5,7 @@ namespace WebApplication1.Controllers
 {
     public class ProductsController : Controller
     {
-        public IActionResult AboutUs()
+        public IActionResult Menu()
         {
             ProductRepasitory.GetProducts();
 
